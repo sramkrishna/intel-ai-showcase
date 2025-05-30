@@ -1,3 +1,4 @@
+
 module.exports = {
   content: [
     "./layouts/**/*.{html,js}",
@@ -7,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        intelblue: '#0071C5',   // Intel blue
-        accent: '#01B8F1',       // Intel cyan accent
+        intelblue: '#0071C5',
+        accent: '#00B8F1',
         intelaltblue: '#0068B5'
       }
     }

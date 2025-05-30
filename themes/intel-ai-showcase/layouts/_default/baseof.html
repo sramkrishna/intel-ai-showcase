@@ -1,27 +1,24 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Title }}</title>
-    <link rel="stylesheet" href="{{ "css/iconicss.min.css" | relURL }}">
-    <link rel="stylesheet" href="{{ "css/style.css" | relURL }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
+    <link href="{{ "css/style.css" | relURL }}" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
   </head>
-
-  <body class="site">
-  <div class="page-wrapper">
-    <div class="container">
-      {{ partial "header.html" . }}
-
-      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {{ block "main" . }}{{ end }}
-      </main>
-
-      {{ partial "footer.html" . }}
-
-    </div> <!-- end .container -->
-  </div> <!-- end .page-wrapper -->
-</body>
-
+  <body class="text-gray-900 m-0 p-0">
+    {{ partial "hero-header.html" . }}
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {{ block "main" . }}{{ end }}
+    </main>
+    {{ partial "footer.html" . }}
+  </body>
 </html>
-
