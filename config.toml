@@ -9,9 +9,19 @@ theme = "intel-ai-showcase"
   brandColor = "#0071C5"
   neutralBackground = "#f4f4f4"
 
+[outputFormats]
+  [outputFormats.SearchIndex]
+    baseName = "index"
+    isPlainText = true
+    mediaType = "application/json"
+    notAlternative = true
 
 [outputs]
-  home = ["HTML", "JSON"]
+  home = ["HTML", "JSON", "SearchIndex"]
+  page = ["HTML"]
+  section = ["HTML"]
+  taxonomy = ["HTML"]
+  taxonomyTerm = ["HTML"]
 
 [taxonomies]
   tag = "tags"

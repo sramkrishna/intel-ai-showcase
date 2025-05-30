@@ -29,5 +29,54 @@
     </div>
   </div>
   <div class="text-center text-sm mt-8 text-gray-300">&copy; 2025 Intel Corporation. All rights reserved.</div>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const input = document.querySelector('input[placeholder="Search projects..."]');
+  const resultsContainer = document.getElementById("search-results");
+  if (!input || !resultsContainer) return;
+
+  input.addEventListener("keydown", async function (e) {
+    if (e.key === "Enter") {
+      const query = input.value.toLowerCase();
+      if (!query) return;
+
+      try {
+        const res = await fetch("{{ "index.json" | relURL }}");
+        const data = await res.json();
+
+        const results = data.filter(item =>
+          item.title.toLowerCase().includes(query) ||
+          item.summary.toLowerCase().includes(query)
+        );
+
+        resultsContainer.innerHTML = ""; // Clear previous
+
+        if (results.length > 0) {
+          results.forEach(item => {
+            const link = document.createElement("a");
+            link.href = item.permalink;
+            link.textContent = item.title;
+            link.className = "block px-4 py-2 hover:bg-gray-100 border-b";
+            resultsContainer.appendChild(link);
+          });
+        } else {
+          resultsContainer.innerHTML = "<p class='px-4 py-2 text-sm text-gray-600'>No results found.</p>";
+        }
+      } catch (err) {
+        console.error("Search error:", err);
+        alert("Failed to load search index.");
+      }
+    }
+  });
+
+  // Optional: Clear results on blur
+  input.addEventListener("blur", () => {
+    setTimeout(() => resultsContainer.innerHTML = "", 300);
+  });
+});
+</script>
+
+
 </footer>
 
