@@ -1,0 +1,41 @@
+baseURL = "https://sramkrishna.github.io/intel-ai-showcase/"
+title = "Intel AI Project Showcase"
+theme = "intel-ai-showcase"
+
+[params]
+  heroTitle = "Welcome to the Intel Software Innovator Program"
+  heroSubtitle = "Celebrating innovation, collaboration, and Ecosystem impact"
+  heroImage = "images/Intel.png"
+  brandColor = "#0071C5"
+  neutralBackground = "#f4f4f4"
+
+
+[outputs]
+  home = ["HTML", "JSON"]
+
+[taxonomies]
+  tag = "tags"
+  use_case = "use_cases"
+  intel_tech = "intel_tech"
+  industry = "industry"
+
+[markup]
+  [markup.postCSS]
+    includeFiles = ["assets/css/style.css"]
+    [markup.postCSS.options]
+      use = ["postcss"]
+
+[[menu.main]]
+  name = "Events"
+  url = "/events/"
+  weight = 1
+
+[[menu.main]]
+  name = "Projects"
+  url = "/projects/"
+  weight = 2
+
+[[menu.main]]
+  name = "Discord"
+  url = "https://discord.gg/your-server-id"
+

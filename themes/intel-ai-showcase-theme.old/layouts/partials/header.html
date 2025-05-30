@@ -1,0 +1,21 @@
+<header>
+    <div class="navbar">
+        <nav>
+            <ul class="nav-list">
+                {{ range .Site.Menus.main }}
+                    <li>
+                        <a href="{{ .URL | relURL }}" target="{{ if strings.HasPrefix .URL "http" }}_blank{{ end }}">
+                            {{ if (strings.Contains .URL "discussions") }}
+                                <img src="{{ "images/icons/message-circle.svg" | relURL }}" alt="Forum" class="icon">
+                            {{ else if (strings.Contains .URL "discord") }}
+                                <img src="{{ "images/icons/discord.svg" | relURL }}" alt="Discord" class="icon">
+                            {{ end }}
+                            {{ .Name }}
+                        </a>
+                    </li>
+                {{ end }}
+            </ul>
+        </nav>
+    </div>
+</header>
+
