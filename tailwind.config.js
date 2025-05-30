@@ -10,7 +10,8 @@ module.exports = {
       colors: {
         intelblue: '#0071C5',
         accent: '#00B8F1',
-        intelaltblue: '#0068B5'
+        intelaltblue: '#0068B5',
+        intelshadeblue2: '#001E50'
       }
     }
   },
