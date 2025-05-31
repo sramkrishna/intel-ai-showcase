@@ -1,6 +1,16 @@
-{{- $index := slice -}}
-{{- range .Site.RegularPages }}
-  {{- $index = $index | append (dict "title" .Title "summary" .Summary "permalink" .Permalink) -}}
-{{- end -}}
-{{- $index | jsonify -}}
+{{- $pages := where .Site.Pages "Section" "projects" -}}
+[
+  {{- range $i, $p := $pages -}}
+    {{- if gt $i 0 }},{{ end }}
+    {
+      "title": {{ $p.Title | jsonify }},
+      "summary": {{ $p.Summary | jsonify }},
+      "permalink": {{ $p.Permalink | jsonify }},
+      "tags": {{ $p.Params.tags | jsonify }},
+      "use_case": {{ $p.Params.use_case | jsonify }},
+      "industry": {{ $p.Params.industry | jsonify }},
+      "intel_tech": {{ $p.Params.intel_tech | jsonify }}
+    }
+  {{- end -}}
+]
 
