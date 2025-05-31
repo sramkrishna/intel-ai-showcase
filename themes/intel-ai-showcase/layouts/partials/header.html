@@ -6,7 +6,7 @@
         id="search-input"
         type="text"
         placeholder="Search projects..."
-        class="text-black px-3 py-2 rounded border h-10 w-full max-w-md md:w-80" 
+        class="text-black px-3 py-2 rounded border h-10 w-full max-w-md md:w-80"
       />
       <div
         id="search-results"
@@ -22,48 +22,52 @@
     const resultsBox = document.getElementById("search-results");
     if (!input || !resultsBox) return;
 
-    input.addEventListener("keydown", async function (e) {
+    let indexData = [];
+
+    fetch("{{ "index.json" | relURL }}")
+      .then(res => res.json())
+      .then(data => {
+        indexData = data;
+      })
+      .catch(err => {
+        console.error("Search index load failed:", err);
+      });
+
+    input.addEventListener("keydown", function (e) {
       if (e.key === "Enter") {
         const query = input.value.trim().toLowerCase();
         if (!query) return;
 
-        try {
-          const res = await fetch("{{ "index.json" | relURL }}");
-          const data = await res.json();
+        const results = indexData.filter(item =>
+          (item.title && item.title.toLowerCase().includes(query)) ||
+          (item.summary && item.summary.toLowerCase().includes(query)) ||
+          (item.tags && item.tags.join(" ").toLowerCase().includes(query))
+        );
 
-          const results = data.filter(item =>
-            item.title.toLowerCase().includes(query) ||
-            item.summary.toLowerCase().includes(query)
-          );
+        resultsBox.innerHTML = "";
 
-          if (results.length > 0) {
-            resultsBox.innerHTML = results.map(result => `
-              <a href="${result.permalink}" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-200">
-                <div class="font-semibold">${result.title}</div>
-                <div class="text-sm text-gray-600">${result.summary}</div>
-              </a>
-            `).join('');
-            resultsBox.classList.remove("hidden");
-          } else {
-            resultsBox.innerHTML = "<div class='p-2'>No results found.</div>";
-            resultsBox.classList.remove("hidden");
-          }
-        } catch (err) {
-          console.error("Search error:", err);
-          alert("Failed to load search index.");
+        if (results.length > 0) {
+          resultsBox.innerHTML = results.map(result => `
+            <a href="${result.permalink}" class="block px-4 py-2 hover:bg-gray-100 border-b border-gray-200">
+              <div class="font-semibold">${result.title}</div>
+              <div class="text-sm text-gray-600">${result.summary}</div>
+            </a>
+          `).join('');
+        } else {
+          resultsBox.innerHTML = "<div class='p-2 text-gray-500'>No results found.</div>";
         }
+
+        resultsBox.classList.remove("hidden");
       }
     });
 
-    // Optional: hide search results if user clicks outside
+    // Hide results if clicking outside
     document.addEventListener("click", function (e) {
       if (!resultsBox.contains(e.target) && e.target !== input) {
         resultsBox.classList.add("hidden");
       }
     });
   });
-</script>
-
-
+  </script>
 </header>
 
