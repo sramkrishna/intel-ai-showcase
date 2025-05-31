@@ -11,7 +11,8 @@ module.exports = {
         intelblue: '#0071C5',
         accent: '#00B8F1',
         intelaltblue: '#0068B5',
-        intelshadeblue2: '#001E50'
+        intelshadeblue2: '#001E50',
+        intelrusttint1: '#FF848A'
       }
     }
   },
